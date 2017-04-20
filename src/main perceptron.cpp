@@ -25,7 +25,7 @@ int main()
 	/*float gamma = (float)rand()*2/INT_MAX-1;
 	if (gamma < 0) gamma++;*/
 
-	float gamma = 0.0194445;	/*	14 ERREURS*/
+	float gamma = 0.02;	/*	14 ERREURS*/
 
 
 	//STEP 2: LEARNING (que les données de train)
@@ -45,9 +45,20 @@ int main()
 
 	float erreur = 0;
     for(int i=0; i<10000; i++) {
+		float mind = -1;
+		int NN;
+		/*for (int j = 0; j<60000; j++) {
+			float d = dist(test_images[i], images[j]);
+			if(d<mind || mind == -1) {
+				mind = d;
+				NN = j;
+			}
+		}*/
+		//int inference = labels[NN];
 		int inference = linear_classifier (w, test_images[i]);
 		printf("%u\n", i);
-		if ((inference == 1 && test_labels[i] != 1)|| (inference == 0 && test_labels[i] == 1)) 				erreur++ ;
+		if ((inference == 1 && test_labels[i] != 1)|| (inference == 0 && test_labels[i] == 1)) erreur++ ;
+		//(inference != test_labels[i]) ? erreur++ : ;
 		//save_jpg(test_images[i], 28, 28, "%u/%u.jpg", inference,i );
 	printf("L'erreur est de %0.8f%%, %f\n", (erreur*100/i), erreur);
 
